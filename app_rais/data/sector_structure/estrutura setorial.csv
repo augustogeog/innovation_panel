@@ -1,0 +1,286 @@
+﻿cod_cnae_grupo;CNAE_grupo;knowledge_services;technology_industries
+011;Produção de lavouras temporárias;Without Classification;Without Classification
+012;Horticultura e floricultura;Without Classification;Without Classification
+013;Produção de lavouras permanentes;Without Classification;Without Classification
+014;Produção de sementes e mudas certificadas;Without Classification;Without Classification
+015;Pecuária;Without Classification;Without Classification
+016;"Atividades de apoio à agricultura e à pecuária; atividades de pós-colheita";Without Classification;Without Classification
+017;Caça e serviços relacionados;Without Classification;Without Classification
+021;Produção florestal - florestas plantadas;Without Classification;Without Classification
+022;Produção florestal - florestas nativas;Without Classification;Without Classification
+023;Atividades de apoio à produção florestal;Without Classification;Without Classification
+031;Pesca;Without Classification;Without Classification
+032;Aqüicultura;Without Classification;Without Classification
+050;Extração de carvão mineral;Without Classification;Without Classification
+060;Extração de petróleo e gás natural;Without Classification;Without Classification
+071;Extração de minério de ferro;Without Classification;Without Classification
+072;Extração de minerais metálicos não-ferrosos;Without Classification;Without Classification
+081;Extração de pedra, areia e argila;Without Classification;Without Classification
+089;Extração de outros minerais não-metálicos;Without Classification;Without Classification
+091;Atividades de apoio à extração de petróleo e gás natural;Without Classification;Without Classification
+099;Atividades de apoio à extração de minerais, exceto petróleo e gás natural;Without Classification;Without Classification
+101;Abate e fabricação de produtos de carne;Without Classification;Low-technology
+102;Preservação do pescado e fabricação de produtos do pescado;Without Classification;Low-technology
+103;Fabricação de conservas de frutas, legumes e outros vegetais;Without Classification;Low-technology
+104;Fabricação de óleos e gorduras vegetais e animais;Without Classification;Low-technology
+105;Laticínios;Without Classification;Low-technology
+106;Moagem, fabricação de produtos amiláceos e de alimentos para animais;Without Classification;Low-technology
+107;Fabricação e refino de açúcar;Without Classification;Low-technology
+108;Torrefação e moagem de café;Without Classification;Low-technology
+109;Fabricação de outros produtos alimentícios;Without Classification;Low-technology
+111;Fabricação de bebidas alcoólicas;Without Classification;Low-technology
+112;Fabricação de bebidas não-alcoólicas;Without Classification;Low-technology
+121;Processamento industrial do fumo;Without Classification;Low-technology
+122;Fabricação de produtos do fumo;Without Classification;Low-technology
+131;Preparação e fiação de fibras têxteis;Without Classification;Low-technology
+132;Tecelagem, exceto malha;Without Classification;Low-technology
+133;Fabricação de tecidos de malha;Without Classification;Low-technology
+134;Acabamentos em fios, tecidos e artefatos têxteis;Without Classification;Low-technology
+135;Fabricação de artefatos têxteis, exceto vestuário;Without Classification;Low-technology
+141;Confecção de artigos do vestuário e acessórios;Without Classification;Low-technology
+142;Fabricação de artigos de malharia e tricotagem;Without Classification;Low-technology
+151;Curtimento e outras preparações de couro;Without Classification;Low-technology
+152;Fabricação de artigos para viagem e de artefatos diversos de couro;Without Classification;Low-technology
+153;Fabricação de calçados;Without Classification;Low-technology
+154;Fabricação de partes para calçados, de qualquer material;Without Classification;Low-technology
+161;Desdobramento de madeira;Without Classification;Low-technology
+162;Fabricação de produtos de madeira, cortiça e material trançado, exceto móveis;Without Classification;Low-technology
+171;Fabricação de celulose e outras pastas para a fabricação de papel;Without Classification;Low-technology
+172;Fabricação de papel, cartolina e papel-cartão;Without Classification;Low-technology
+173;Fabricação de embalagens de papel, cartolina, papel-cartão e papelão ondulado;Without Classification;Low-technology
+174;Fabricação de produtos diversos de papel, cartolina, papel-cartão e papelão ondulado;Without Classification;Low-technology
+181;Atividade de impressão;Without Classification;Low-technology
+182;Serviços de pré-impressão e acabamentos gráficos;Without Classification;Low-technology
+183;Reprodução de materiais gravados em qualquer suporte;Without Classification;Medium-low-technology
+191;Coquerias;Without Classification;Medium-low-technology
+192;Fabricação de produtos derivados do petróleo;Without Classification;Medium-low-technology
+193;Fabricação de biocombustíveis;Without Classification;Medium-low-technology
+201;Fabricação de produtos químicos inorgânicos;Without Classification;Medium-high-technology
+202;Fabricação de produtos químicos orgânicos;Without Classification;Medium-high-technology
+203;Fabricação de resinas e elastômeros;Without Classification;Medium-high-technology
+204;Fabricação de fibras artificiais e sintéticas;Without Classification;Medium-high-technology
+205;Fabricação de defensivos agrícolas e desinfestantes domissanitários;Without Classification;Medium-high-technology
+206;Fabricação de sabões, detergentes, produtos de limpeza, cosméticos, produtos de perfumaria e de higiene pessoal;Without Classification;Medium-high-technology
+207;Fabricação de tintas, vernizes, esmaltes, lacas e produtos afins;Without Classification;Medium-high-technology
+209;Fabricação de produtos e preparados químicos diversos;Without Classification;Medium-high-technology
+211;Fabricação de produtos farmoquímicos;Without Classification;High-technology
+212;Fabricação de produtos farmacêuticos;Without Classification;High-technology
+221;Fabricação de produtos de borracha;Without Classification;Medium-low-technology
+222;Fabricação de produtos de material plástico;Without Classification;Medium-low-technology
+231;Fabricação de vidro e de produtos do vidro;Without Classification;Medium-low-technology
+232;Fabricação de cimento;Without Classification;Medium-low-technology
+233;Fabricação de artefatos de concreto, cimento, fibrocimento, gesso e materiais semelhantes;Without Classification;Medium-low-technology
+234;Fabricação de produtos cerâmicos;Without Classification;Medium-low-technology
+239;Aparelhamento de pedras e fabricação de outros produtos de minerais não-metálicos;Without Classification;Medium-low-technology
+241;Produção de ferro-gusa e de ferroligas;Without Classification;Medium-low-technology
+242;Siderurgia;Without Classification;Medium-low-technology
+243;Produção de tubos de aço, exceto tubos sem costura;Without Classification;Medium-low-technology
+244;Metalurgia dos metais não-ferrosos;Without Classification;Medium-low-technology
+245;Fundição;Without Classification;Medium-low-technology
+251;Fabricação de estruturas metálicas e obras de caldeiraria pesada;Without Classification;Medium-low-technology
+252;Fabricação de tanques, reservatórios metálicos e caldeiras;Without Classification;Medium-low-technology
+253;Forjaria, estamparia, metalurgia do pó e serviços de tratamento de metais;Without Classification;Medium-low-technology
+254;Fabricação de artigos de cutelaria, de serralheria e ferramentas;Without Classification;Medium-high-technology
+255;Fabricação de equipamento bélico pesado, armas de fogo e munições;Without Classification;Medium-low-technology
+259;Fabricação de produtos de metal não especificados anteriormente;Without Classification;Medium-low-technology
+261;Fabricação de componentes eletrônicos;Without Classification;High-technology
+262;Fabricação de equipamentos de informática e periféricos;Without Classification;High-technology
+263;Fabricação de equipamentos de comunicação;Without Classification;High-technology
+264;Fabricação de aparelhos de recepção, reprodução, gravação e amplificação de áudio e vídeo;Without Classification;High-technology
+265;"Fabricação de aparelhos e instrumentos de medida, teste e controle; cronômetros e relógios";Without Classification;High-technology
+266;Fabricação de aparelhos eletromédicos e eletroterapêuticos e equipamentos de irradiação;Without Classification;High-technology
+267;Fabricação de equipamentos e instrumentos ópticos, fotográficos e cinematográficos;Without Classification;High-technology
+268;Fabricação de mídias virgens, magnéticas e ópticas;Without Classification;High-technology
+271;Fabricação de geradores, transformadores e motores elétricos;Without Classification;Medium-high-technology
+272;Fabricação de pilhas, baterias e acumuladores elétricos;Without Classification;Medium-high-technology
+273;Fabricação de equipamentos para distribuição e controle de energia elétrica;Without Classification;Medium-high-technology
+274;Fabricação de lâmpadas e outros equipamentos de iluminação;Without Classification;Medium-high-technology
+275;Fabricação de eletrodomésticos;Without Classification;Medium-high-technology
+279;Fabricação de equipamentos e aparelhos elétricos não especificados anteriormente;Without Classification;Medium-high-technology
+281;Fabricação de motores, bombas, compressores e equipamentos de transmissão;Without Classification;Medium-high-technology
+282;Fabricação de máquinas e equipamentos de uso geral;Without Classification;Medium-high-technology
+283;Fabricação de tratores e de máquinas e equipamentos para a agricultura e pecuária;Without Classification;Medium-high-technology
+284;Fabricação de máquinas-ferramenta;Without Classification;Medium-high-technology
+285;Fabricação de máquinas e equipamentos de uso na extração mineral e na construção;Without Classification;Medium-high-technology
+286;Fabricação de máquinas e equipamentos de uso industrial específico;Without Classification;Medium-high-technology
+291;Fabricação de automóveis, camionetas e utilitários;Without Classification;Medium-high-technology
+292;Fabricação de caminhões e ônibus;Without Classification;Medium-high-technology
+293;Fabricação de cabines, carrocerias e reboques para veículos automotores;Without Classification;Medium-high-technology
+294;Fabricação de peças e acessórios para veículos automotores;Without Classification;Medium-high-technology
+295;Recondicionamento e recuperação de motores para veículos automotores;Without Classification;Medium-high-technology
+301;Construção de embarcações;Without Classification;Medium-low-technology
+303;Fabricação de veículos ferroviários;Without Classification;Medium-high-technology
+304;Fabricação de aeronaves;Without Classification;High-technology
+305;Fabricação de veículos militares de combate;Without Classification;Medium-high-technology
+309;Fabricação de equipamentos de transporte não especificados anteriormente;Without Classification;Medium-high-technology
+310;Fabricação de móveis;Without Classification;Low-technology
+321;Fabricação de artigos de joalheria, bijuteria e semelhantes;Without Classification;Low-technology
+322;Fabricação de instrumentos musicais;Without Classification;Low-technology
+323;Fabricação de artefatos para pesca e esporte;Without Classification;Low-technology
+324;Fabricação de brinquedos e jogos recreativos;Without Classification;Low-technology
+325;Fabricação de instrumentos e materiais para uso médico e odontológico e de artigos ópticos;Without Classification;Medium-high-technology
+329;Fabricação de produtos diversos;Without Classification;Low-technology
+331;Manutenção e reparação de máquinas e equipamentos;Without Classification;Medium-low-technology
+332;Instalação de máquinas e equipamentos;Without Classification;Medium-low-technology
+351;Geração, transmissão e distribuição de energia elétrica;Without Classification;Without Classification
+352;Produção e distribuição de combustíveis gasosos por redes urbanas;Without Classification;Without Classification
+353;Produção e distribuição de vapor, água quente e ar condicionado;Without Classification;Without Classification
+360;Captação, tratamento e distribuição de água;Without Classification;Without Classification
+370;Esgoto e atividades relacionadas;Without Classification;Without Classification
+381;Coleta de resíduos;Without Classification;Without Classification
+382;Tratamento e disposição de resíduos;Without Classification;Without Classification
+383;Recuperação de materiais;Without Classification;Without Classification
+390;Descontaminação e outros serviços de gestão de resíduos;Without Classification;Without Classification
+411;Incorporação de empreendimentos imobiliários;Without Classification;Without Classification
+412;Construção de edifícios;Without Classification;Without Classification
+421;Construção de rodovias, ferrovias, obras urbanas e obras-de-arte especiais;Without Classification;Without Classification
+422;Obras de infra-estrutura para energia elétrica, telecomunicações, água, esgoto e transporte por dutos;Without Classification;Without Classification
+429;Construção de outras obras de infra-estrutura;Without Classification;Without Classification
+431;Demolição e preparação do terreno;Without Classification;Without Classification
+432;Instalações elétricas, hidráulicas e outras instalações em construções;Without Classification;Without Classification
+433;Obras de acabamento;Without Classification;Without Classification
+439;Outros serviços especializados para construção;Without Classification;Without Classification
+451;Comércio de veículos automotores;Less knowledge-intensive market services;Without Classification
+452;Manutenção e reparação de veículos automotores;Less knowledge-intensive market services;Without Classification
+453;Comércio de peças e acessórios para veículos automotores;Less knowledge-intensive market services;Without Classification
+454;Comércio, manutenção e reparação de motocicletas, peças e acessórios;Less knowledge-intensive market services;Without Classification
+461;Representantes comerciais e agentes do comércio, exceto de veículos automotores e motocicletas;Less knowledge-intensive market services;Without Classification
+462;Comércio atacadista de matérias-primas agrícolas e animais vivos;Less knowledge-intensive market services;Without Classification
+463;Comércio atacadista especializado em produtos alimentícios, bebidas e fumo;Less knowledge-intensive market services;Without Classification
+464;Comércio atacadista de produtos de consumo não-alimentar;Less knowledge-intensive market services;Without Classification
+465;Comércio atacadista de equipamentos e produtos de tecnologias de informação e comunicação;Less knowledge-intensive market services;Without Classification
+466;Comércio atacadista de máquinas, aparelhos e equipamentos, exceto de tecnologias de informação e comunicação;Less knowledge-intensive market services;Without Classification
+467;Comércio atacadista de madeira, ferragens, ferramentas, material elétrico e material de construção;Less knowledge-intensive market services;Without Classification
+468;Comércio atacadista especializado em outros produtos;Less knowledge-intensive market services;Without Classification
+469;Comércio atacadista não-especializado;Less knowledge-intensive market services;Without Classification
+471;Comércio varejista não-especializado;Less knowledge-intensive market services;Without Classification
+472;Comércio varejista de produtos alimentícios, bebidas e fumo;Less knowledge-intensive market services;Without Classification
+473;Comércio varejista de combustíveis para veículos automotores;Less knowledge-intensive market services;Without Classification
+474;Comércio varejista de material de construção;Less knowledge-intensive market services;Without Classification
+475;"Comércio varejista de equipamentos de informática e comunicação; equipamentos e artigos de uso doméstico";Less knowledge-intensive market services;Without Classification
+476;Comércio varejista de artigos culturais, recreativos e esportivos;Less knowledge-intensive market services;Without Classification
+477;Comércio varejista de produtos farmacêuticos, perfumaria e cosméticos e artigos médicos, ópticos e ortopédicos;Less knowledge-intensive market services;Without Classification
+478;Comércio varejista de produtos novos não especificados anteriormente e de produtos usados;Less knowledge-intensive market services;Without Classification
+479;Comércio ambulante e outros tipos de comércio varejista;Less knowledge-intensive market services;Without Classification
+491;Transporte ferroviário e metroferroviário;Less knowledge-intensive market services;Without Classification
+492;Transporte rodoviário de passageiros;Less knowledge-intensive market services;Without Classification
+493;Transporte rodoviário de carga;Less knowledge-intensive market services;Without Classification
+494;Transporte dutoviário;Less knowledge-intensive market services;Without Classification
+495;Trens turísticos, teleféricos e similares;Less knowledge-intensive market services;Without Classification
+501;Transporte marítimo de cabotagem e longo curso;Knowledge-intensive market services;Without Classification
+502;Transporte por navegação interior;Knowledge-intensive market services;Without Classification
+503;Navegação de apoio;Knowledge-intensive market services;Without Classification
+509;Outros transportes aquaviários;Knowledge-intensive market services;Without Classification
+511;Transporte aéreo de passageiros;Knowledge-intensive market services;Without Classification
+512;Transporte aéreo de carga;Knowledge-intensive market services;Without Classification
+513;Transporte espacial;Knowledge-intensive market services;Without Classification
+521;Armazenamento, carga e descarga;Less knowledge-intensive market services;Without Classification
+522;Atividades auxiliares dos transportes terrestres;Less knowledge-intensive market services;Without Classification
+523;Atividades auxiliares dos transportes aquaviários;Less knowledge-intensive market services;Without Classification
+524;Atividades auxiliares dos transportes aéreos;Less knowledge-intensive market services;Without Classification
+525;Atividades relacionadas à organização do transporte de carga;Less knowledge-intensive market services;Without Classification
+531;Atividades de Correio;Other less knowledge-intensive services;Without Classification
+532;Atividades de malote e de entrega;Other less knowledge-intensive services;Without Classification
+551;Hotéis e similares;Less knowledge-intensive market services;Without Classification
+559;Outros tipos de alojamento não especificados anteriormente;Less knowledge-intensive market services;Without Classification
+561;Restaurantes e outros serviços de alimentação e bebidas;Less knowledge-intensive market services;Without Classification
+562;Serviços de catering, bufê e outros serviços de comida preparada;Less knowledge-intensive market services;Without Classification
+581;Edição de livros, jornais, revistas e outras atividades de edição;Other knowledge-intensive services;Without Classification
+582;Edição integrada à impressão de livros, jornais, revistas e outras publicações;Other knowledge-intensive services;Without Classification
+591;Atividades cinematográficas, produção de vídeos e de programas de televisão;High-tech knowledge-intensive services;Without Classification
+592;Atividades de gravação de som e de edição de música;High-tech knowledge-intensive services;Without Classification
+601;Atividades de rádio;High-tech knowledge-intensive services;Without Classification
+602;Atividades de televisão;High-tech knowledge-intensive services;Without Classification
+611;Telecomunicações por fio;High-tech knowledge-intensive services;Without Classification
+612;Telecomunicações sem fio;High-tech knowledge-intensive services;Without Classification
+613;Telecomunicações por satélite;High-tech knowledge-intensive services;Without Classification
+614;Operadoras de televisão por assinatura;High-tech knowledge-intensive services;Without Classification
+619;Outras atividades de telecomunicações;High-tech knowledge-intensive services;Without Classification
+620;Atividades dos serviços de tecnologia da informação;High-tech knowledge-intensive services;Without Classification
+631;Tratamento de dados, hospedagem na internet e outras atividades relacionadas;High-tech knowledge-intensive services;Without Classification
+639;Outras atividades de prestação de serviços de informação;High-tech knowledge-intensive services;Without Classification
+641;Banco Central;Knowledge-intensive financial services;Without Classification
+642;Intermediação monetária - depósitos à vista;Knowledge-intensive financial services;Without Classification
+643;Intermediação não-monetária - outros instrumentos de captação;Knowledge-intensive financial services;Without Classification
+644;Arrendamento mercantil;Knowledge-intensive financial services;Without Classification
+645;Sociedades de capitalização;Knowledge-intensive financial services;Without Classification
+646;Atividades de sociedades de participação;Knowledge-intensive financial services;Without Classification
+647;Fundos de investimento;Knowledge-intensive financial services;Without Classification
+649;Atividades de serviços financeiros não especificadas anteriormente;Knowledge-intensive financial services;Without Classification
+651;Seguros de vida e não-vida;Knowledge-intensive financial services;Without Classification
+652;Seguros-saúde;Knowledge-intensive financial services;Without Classification
+653;Resseguros;Knowledge-intensive financial services;Without Classification
+654;Previdência complementar;Knowledge-intensive financial services;Without Classification
+655;Planos de saúde;Knowledge-intensive financial services;Without Classification
+661;Atividades auxiliares dos serviços financeiros;Knowledge-intensive financial services;Without Classification
+662;Atividades auxiliares dos seguros, da previdência complementar e dos planos de saúde;Knowledge-intensive financial services;Without Classification
+663;Atividades de administração de fundos por contrato ou comissão;Knowledge-intensive financial services;Without Classification
+681;Atividades imobiliárias de imóveis próprios;Less knowledge-intensive market services;Without Classification
+682;Atividades imobiliárias por contrato ou comissão;Less knowledge-intensive market services;Without Classification
+691;Atividades jurídicas;Knowledge-intensive market services;Without Classification
+692;Atividades de contabilidade, consultoria e auditoria contábil e tributária;Knowledge-intensive market services;Without Classification
+701;Sedes de empresas e unidades administrativas locais;Knowledge-intensive market services;Without Classification
+702;Atividades de consultoria em gestão empresarial;Knowledge-intensive market services;Without Classification
+711;Serviços de arquitetura e engenharia e atividades técnicas relacionadas;Knowledge-intensive market services;Without Classification
+712;Testes e análises técnicas;Knowledge-intensive market services;Without Classification
+721;Pesquisa e desenvolvimento experimental em ciências físicas e naturais;High-tech knowledge-intensive services;Without Classification
+722;Pesquisa e desenvolvimento experimental em ciências sociais e humanas;High-tech knowledge-intensive services;Without Classification
+731;Publicidade;Knowledge-intensive market services;Without Classification
+732;Pesquisas de mercado e de opinião pública;Knowledge-intensive market services;Without Classification
+741;Design e decoração de interiores;Knowledge-intensive market services;Without Classification
+742;Atividades fotográficas e similares;Knowledge-intensive market services;Without Classification
+749;Atividades profissionais, científicas e técnicas não especificadas anteriormente;Knowledge-intensive market services;Without Classification
+750;Atividades veterinárias;Other knowledge-intensive services;Without Classification
+771;Locação de meios de transporte sem condutor;Less knowledge-intensive market services;Without Classification
+772;Aluguel de objetos pessoais e domésticos;Less knowledge-intensive market services;Without Classification
+773;Aluguel de máquinas e equipamentos sem operador;Less knowledge-intensive market services;Without Classification
+774;Gestão de ativos intangíveis não-financeiros;Less knowledge-intensive market services;Without Classification
+781;Seleção e agenciamento de mão-de-obra;Knowledge-intensive market services;Without Classification
+782;Locação de mão-de-obra temporária;Knowledge-intensive market services;Without Classification
+783;Fornecimento e gestão de recursos humanos para terceiros;Knowledge-intensive market services;Without Classification
+791;Agências de viagens e operadores turísticos;Less knowledge-intensive market services;Without Classification
+799;Serviços de reservas e outros serviços de turismo não especificados anteriormente;Less knowledge-intensive market services;Without Classification
+801;Atividades de vigilância, segurança privada e transporte de valores;Knowledge-intensive market services;Without Classification
+802;Atividades de monitoramento de sistemas de segurança;Knowledge-intensive market services;Without Classification
+803;Atividades de investigação particular;Knowledge-intensive market services;Without Classification
+811;Serviços combinados para apoio a edifícios;Less knowledge-intensive market services;Without Classification
+812;Atividades de limpeza;Less knowledge-intensive market services;Without Classification
+813;Atividades paisagísticas;Less knowledge-intensive market services;Without Classification
+821;Serviços de escritório e apoio administrativo;Less knowledge-intensive market services;Without Classification
+822;Atividades de teleatendimento;Less knowledge-intensive market services;Without Classification
+823;Atividades de organização de eventos, exceto culturais e esportivos;Less knowledge-intensive market services;Without Classification
+829;Outras atividades de serviços prestados principalmente às empresas;Less knowledge-intensive market services;Without Classification
+841;Administração do estado e da política econômica e social;Other knowledge-intensive services;Without Classification
+842;Serviços coletivos prestados pela administração pública;Other knowledge-intensive services;Without Classification
+843;Seguridade social obrigatória;Other knowledge-intensive services;Without Classification
+851;Educação infantil e ensino fundamental;Other knowledge-intensive services;Without Classification
+852;Ensino médio;Other knowledge-intensive services;Without Classification
+853;Educação superior;Other knowledge-intensive services;Without Classification
+854;Educação profissional de nível técnico e tecnológico;Other knowledge-intensive services;Without Classification
+855;Atividades de apoio à educação;Other knowledge-intensive services;Without Classification
+859;Outras atividades de ensino;Other knowledge-intensive services;Without Classification
+861;Atividades de atendimento hospitalar;Other knowledge-intensive services;Without Classification
+862;Serviços móveis de atendimento a urgências e de remoção de pacientes;Other knowledge-intensive services;Without Classification
+863;Atividades de atenção ambulatorial executadas por médicos e odontólogos;Other knowledge-intensive services;Without Classification
+864;Atividades de serviços de complementação diagnóstica e terapêutica;Other knowledge-intensive services;Without Classification
+865;Atividades de profissionais da área de saúde, exceto médicos e odontólogos;Other knowledge-intensive services;Without Classification
+866;Atividades de apoio à gestão de saúde;Other knowledge-intensive services;Without Classification
+869;Atividades de atenção à saúde humana não especificadas anteriormente;Other knowledge-intensive services;Without Classification
+871;Atividades de assistência a idosos, deficientes físicos, imunodeprimidos e convalescentes, e de infra-estrutura e apoio a pacientes prestadas em residências coletivas e particulares;Other knowledge-intensive services;Without Classification
+872;Atividades de assistência psicossocial e à saúde a portadores de distúrbios psíquicos, deficiência mental e dependência química;Other knowledge-intensive services;Without Classification
+873;Atividades de assistência social prestadas em residências coletivas e particulares;Other knowledge-intensive services;Without Classification
+880;Serviços de assistência social sem alojamento;Other knowledge-intensive services;Without Classification
+900;Atividades artísticas, criativas e de espetáculos;Other knowledge-intensive services;Without Classification
+910;Atividades ligadas ao patrimônio cultural e ambiental;Other knowledge-intensive services;Without Classification
+920;Atividades de exploração de jogos de azar e apostas;Other knowledge-intensive services;Without Classification
+931;Atividades esportivas;Other knowledge-intensive services;Without Classification
+932;Atividades de recreação e lazer;Other knowledge-intensive services;Without Classification
+941;Atividades de organizações associativas patronais, empresariais e profissionais;Other less knowledge-intensive services;Without Classification
+942;Atividades de organizações sindicais;Other less knowledge-intensive services;Without Classification
+943;Atividades de associações de defesa de direitos sociais;Other less knowledge-intensive services;Without Classification
+949;Atividades de organizações associativas não especificadas anteriormente;Other less knowledge-intensive services;Without Classification
+951;Reparação e manutenção de equipamentos de informática e comunicação;Less knowledge-intensive market services;Without Classification
+952;Reparação e manutenção de objetos e equipamentos pessoais e domésticos;Less knowledge-intensive market services;Without Classification
+960;Outras atividades de serviços pessoais;Other less knowledge-intensive services;Without Classification
+970;Serviços domésticos;Other less knowledge-intensive services;Without Classification
+990;Organismos internacionais e outras instituições extraterritoriais;Other less knowledge-intensive services;Without Classification
