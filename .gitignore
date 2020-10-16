@@ -1,0 +1,7 @@
+.ipynb_checkpoints/
+app_rais/.ipynb_checkpoints/
+app_rais/__pycache__/
+app_rais/data_1/
+app_rais/data/rais_original/
+app_rais/data/rais_treated/
+app_rais/pivottablejs.html

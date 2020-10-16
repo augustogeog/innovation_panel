@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PivotTable.js</title>
+
+        <!-- external libs from cdnjs -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/d3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/c3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/export_renderers.min.js"></script>
+
+        <style>
+            body {font-family: Verdana;}
+            .node {
+              border: solid 1px white;
+              font: 10px sans-serif;
+              line-height: 12px;
+              overflow: hidden;
+              position: absolute;
+              text-indent: 2px;
+            }
+            .c3-line, .c3-focused {stroke-width: 3px !important;}
+            .c3-bar {stroke: white !important; stroke-width: 1;}
+            .c3 text { font-size: 12px; color: grey;}
+            .tick line {stroke: white;}
+            .c3-axis path {stroke: grey;}
+            .c3-circle { opacity: 1 !important; }
+            .c3-xgrid-focus {visibility: hidden !important;}
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(function(){
+                if(window.location != window.parent.location)
+                    $("<a>", {target:"_blank", href:""})
+                        .text("[pop out]").prependTo($("body"));
+
+                $("#output").pivotUI(
+                    $.csv.toArrays($("#output").text()),
+                    $.extend({
+                        renderers: $.extend(
+                            $.pivotUtilities.renderers,
+                            $.pivotUtilities.c3_renderers,
+                            $.pivotUtilities.d3_renderers,
+                            $.pivotUtilities.export_renderers
+                            ),
+                        hiddenAttributes: [""]
+                    }, {})
+                ).show();
+             });
+        </script>
+        <div id="output" style="display: none;">Espaço Metropolitano,Nível Tecnológico,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017
+Belo Horizonte,High-technology,7278,8625,8512,8813,8249,8500,8017,8323,7396,7404,7030
+Belo Horizonte,Medium-high-technology,58136,60591,59414,68704,73106,78247,78552,73961,59606,51904,49110
+Belo Horizonte,Medium-low-technology,66479,69961,67145,75240,77450,76156,73031,71784,63488,56345,54626
+Belo Horizonte,Low-technology,58058,58965,58437,62727,60275,63450,61783,59125,56222,53226,53753
+Belém,High-technology,147,96,66,22,23,18,47,46,42,4,16
+Belém,Medium-high-technology,1327,1709,1620,1992,1961,1929,2100,2230,2261,2222,2236
+Belém,Medium-low-technology,4146,5038,5125,5590,5511,5565,5698,6256,5103,4695,4587
+Belém,Low-technology,20201,17668,16507,17687,16400,16402,16320,16984,16435,15142,15508
+Brasília,High-technology,1028,1466,1407,1468,1638,1683,2042,2020,2143,2177,1728
+Brasília,Medium-high-technology,2943,3272,3308,3084,3333,3757,3346,3513,2892,2798,2819
+Brasília,Medium-low-technology,5354,6030,6711,7985,8740,9728,9703,9248,8268,7515,7501
+Brasília,Low-technology,16712,17493,18056,20370,20280,22184,19485,19138,19833,18900,18527
+Campinas,High-technology,12150,12886,11906,13782,15404,16826,16793,15641,14461,14369,13910
+Campinas,Medium-high-technology,51371,52767,51983,57243,57560,56033,53845,51809,46898,44463,42724
+Campinas,Medium-low-technology,23780,27727,26889,28646,30276,29087,29184,30595,26523,26766,26969
+Campinas,Low-technology,26598,27002,27489,29895,30022,31156,29492,31324,29574,28816,28784
+Curitiba,High-technology,8404,9931,12214,10637,9255,9729,9705,8887,7380,6166,6121
+Curitiba,Medium-high-technology,63993,66371,67378,75287,81549,82714,80549,73766,64756,60841,61754
+Curitiba,Medium-low-technology,45647,48231,47987,51941,53517,54230,55055,52938,48678,45492,45131
+Curitiba,Low-technology,54896,55468,54579,58718,58664,57031,56972,55939,51220,48744,46028
+Florianópolis,High-technology,2213,2440,2525,2410,2561,2633,2658,2920,2651,2852,3213
+Florianópolis,Medium-high-technology,2235,2370,2577,2880,3145,3218,3460,3618,3261,3193,3336
+Florianópolis,Medium-low-technology,6504,7048,7333,8460,8884,8962,9142,8594,8094,7615,8129
+Florianópolis,Low-technology,8801,9207,9398,10816,11321,11248,11495,11585,11355,10622,12146
+Fortaleza,High-technology,2536,2592,2836,3083,3259,2908,2915,2674,2499,2135,2224
+Fortaleza,Medium-high-technology,8537,9386,9513,9633,9771,9866,10055,10520,13664,13548,12683
+Fortaleza,Medium-low-technology,17535,19190,20358,24146,24677,28227,28676,28838,23091,20646,19654
+Fortaleza,Low-technology,89261,93224,98773,106879,105414,106311,105764,105790,97549,89680,87884
+Goiânia,High-technology,3277,3045,3429,3604,3396,2884,3359,2997,2790,2640,2471
+Goiânia,Medium-high-technology,6572,7458,7608,9824,10041,9297,9543,9575,9006,10236,10864
+Goiânia,Medium-low-technology,10975,11953,12188,14229,16236,17018,17199,17609,15862,13709,13720
+Goiânia,Low-technology,44858,45991,47187,50599,52157,56382,59179,58486,55081,50518,49824
+Manaus,High-technology,36928,30074,26798,32777,41823,42168,46980,38615,26894,27322,27844
+Manaus,Medium-high-technology,28953,34781,33397,35491,40416,35871,38072,38623,32864,28174,26981
+Manaus,Medium-low-technology,22321,23327,22697,24759,26110,24723,26312,26510,21043,18511,18464
+Manaus,Low-technology,12227,12676,12469,13512,14734,15935,17142,16252,15739,13746,13816
+Porto Alegre,High-technology,9559,10094,10729,11924,12370,10762,11186,10738,9865,8721,8619
+Porto Alegre,Medium-high-technology,45603,48069,45483,51747,53631,53682,58079,53858,48598,42141,42699
+Porto Alegre,Medium-low-technology,54781,56140,55358,59122,61222,58749,56960,54696,47011,46024,45473
+Porto Alegre,Low-technology,113131,108419,110241,118785,115217,114373,113245,109222,102628,101853,97153
+Recife,High-technology,1109,764,1205,1286,1293,1177,1210,1172,1113,981,1004
+Recife,Medium-high-technology,12729,14653,14861,15753,18364,20307,21387,17558,16760,16597,16445
+Recife,Medium-low-technology,21493,23452,26815,30136,32621,34528,39709,35074,31448,28723,28210
+Recife,Low-technology,49818,51587,52979,53979,52650,56753,54643,59283,54205,49971,49099
+Rio de Janeiro,High-technology,10833,12082,12322,12879,12576,12347,11179,11919,10984,10353,11130
+Rio de Janeiro,Medium-high-technology,40236,42331,39918,42698,42925,42819,45796,44240,38613,33734,29629
+Rio de Janeiro,Medium-low-technology,69089,76903,76651,96024,102165,106110,110540,110713,92980,78471,71987
+Rio de Janeiro,Low-technology,94510,90167,94043,99758,101434,102549,97912,97351,90158,82379,77013
+Salvador,High-technology,1578,1424,1234,1448,1801,1845,1502,1181,927,801,649
+Salvador,Medium-high-technology,21282,21118,19991,21538,21742,23878,24747,22704,22845,20647,20799
+Salvador,Medium-low-technology,25266,24981,27009,30109,33633,32664,33144,31270,28913,27225,26336
+Salvador,Low-technology,22821,23233,24423,26308,27566,28621,29544,29412,27396,26819,25842
+São Paulo,High-technology,67009,71647,68933,69852,69954,68672,67050,65252,62408,58103,56132
+São Paulo,Medium-high-technology,343099,361913,350185,378392,378546,360606,365339,347007,305817,277479,262361
+São Paulo,Medium-low-technology,308656,314389,303328,323726,321984,316323,309259,289370,251968,234148,229724
+São Paulo,Low-technology,332736,334918,329884,350157,346851,346011,343612,331221,302623,282186,267415
+Vitória,High-technology,239,232,225,232,275,254,278,244,252,253,276
+Vitória,Medium-high-technology,3436,3624,3641,4252,4661,4487,4379,4441,3911,3826,3650
+Vitória,Medium-low-technology,21710,24689,21600,23943,24724,25057,24421,24680,23674,21518,21245
+Vitória,Low-technology,17521,17399,17951,19432,20224,19667,18965,19383,18263,16789,17040
+Total,High-technology,164288,167398,164341,174217,183877,182406,184921,172629,151805,144281,142367
+Total,Medium-high-technology,690452,730413,710877,778518,800751,786711,799249,757423,671752,611803,588090
+Total,Medium-low-technology,703736,739059,727194,804056,827750,827127,828033,798175,696144,637403,621756
+Total,Low-technology,962149,963417,972416,1039622,1033209,1048073,1035553,1020495,948281,889391,859832
+</div>
+    </body>
+</html>

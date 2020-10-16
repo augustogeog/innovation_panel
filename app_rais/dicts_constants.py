@@ -147,6 +147,17 @@ type_cat_potec = CategoricalDtype(
         , ordered=True
 )
 
+type_cat_knowledge_PT = CategoricalDtype(
+    categories= [
+        'De Alta Tecnologia Intensivos em Conhecimento'
+        ,'Serviços Financeiros Intensivos em Conhecimento'
+        ,'Serviços de Mercado Intensivos em Conhecimento'
+        ,'Outros Serviços Intensivos em Conhecimento'
+        ,'Serviços Menos Intensivos em Conhecimento'
+        ]
+        , ordered=True
+)
+
 
 dict_porte = {
     -1:'Ignorado'
@@ -352,6 +363,24 @@ dic_dtype = {
     , 'Sexo Trabalhador':'category'
 }
 
+
+dict_arranjo = {
+    'Arranjo Populacional de Belém/PA':'Belém'
+    ,'Arranjo Populacional de Belo Horizonte/MG':'Belo Horizonte'
+    ,'Arranjo Populacional de Brasília/DF':'Brasília'
+    ,'Arranjo Populacional de Campinas/SP':'Campinas'
+    ,'Arranjo Populacional de Curitiba/PR':'Curitiba'
+    ,'Arranjo Populacional de Florianópolis/SC':'Florianópolis'
+    ,'Arranjo Populacional de Fortaleza/CE':'Fortaleza'
+    ,'Arranjo Populacional de Goiânia/GO':'Goiânia'
+    ,'Arranjo Populacional de Porto Alegre/RS':'Porto Alegre'
+    ,'Arranjo Populacional de Recife/PE':'Recife'
+    ,'Arranjo Populacional de Rio de Janeiro/RJ':'Rio de Janeiro'
+    ,'Arranjo Populacional de Salvador/BA':'Salvador'
+    ,'Arranjo Populacional de São Paulo/SP':'São Paulo'
+    ,'Arranjo Populacional de Vitória/ES':'Vitória'
+    ,'Manaus':'Manaus'
+}
 
 
 def get_dict_services_knowledge():
