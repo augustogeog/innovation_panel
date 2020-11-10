@@ -9,7 +9,46 @@ import app_rais.dicts_constants as dc
 modulepath = os.path.dirname(__file__)
 
 
-def pretreat_rais(uf='PR', year='2007', treating=True):
+def pretreat_2018(list_ufs, year=2018):
+
+    for uf in list_ufs:
+        if os.path.isfile(os.path.join(modulepath, f'data/rais_original/{year}/{uf}{year}.txt')):
+            print(f'{uf.upper()}{year}.txt already exists.')
+            pass
+        else:        
+            if uf.upper() in ['RR', 'AP', 'AM', 'PA', 'TO', 'AC', 'RO']:
+                file = 'RAIS_VINC_PUB_NORTE'
+            elif uf.upper() in ['MT', 'MS', 'GO', 'DF']:
+                file = 'RAIS_VINC_PUB_CENTRO_OESTE'
+            elif uf.upper() in ['MG', 'RJ', 'ES']:
+                file = 'RAIS_VINC_PUB_MG_ES_RJ'
+            elif uf.upper() in ['PR', 'SC', 'RS']:
+                file = 'RAIS_VINC_PUB_SUL'
+            elif uf.upper() in ['MA', 'PI', 'CE', 'RN', 'PB', 'PE', 'AL', 'SE', 'BA']:
+                file = 'RAIS_VINC_PUB_NORDESTE'
+            elif uf.upper() == 'SP':
+                file = 'RAIS_VINC_PUB_SP'
+
+            df = pd.read_table(
+                os.path.join(modulepath, f'data/rais_original/{year}/{file}.txt')
+                , encoding='Latin-1'
+                , sep=';'
+                , decimal=','
+                , dtype=dc.dic_dtype
+                )
+            df = df[df['Município'].str.startswith(dc.dict_uf_cod[uf])]
+
+            df.to_csv(
+                os.path.join(modulepath, f'data/rais_original/{year}/{uf}{year}.txt')
+                , encoding='Latin-1'
+                , sep=';'
+                , decimal=','
+                , index=False
+            )
+            print(print(f'{uf.upper()}{year}.txt saved.'))
+
+
+def pretreat_rais(uf='PR', year=2007, treating=True):
     '''
     Loads Rais data into Pandas DataFrame regarding the year and Brazilian
     federation unity (UF) selected. If treating is set to True (default), 
@@ -19,9 +58,9 @@ def pretreat_rais(uf='PR', year='2007', treating=True):
     
     '''
 
-    year = str(year)
+    year = int(year)
 
-    list_column_keep = interest_columns_for_year(year)
+    list_column_keep = dc.interest_columns_for_year(year)
 
 
     if uf==None or year==None:
@@ -31,7 +70,7 @@ def pretreat_rais(uf='PR', year='2007', treating=True):
     
         if treating == False:
             df = pd.read_table(
-                os.path.join(modulepath, f'data//rais_original//{year}//{uf.upper()}{year}.txt')
+                os.path.join(modulepath, f'data/rais_original/{year}/{uf.upper()}{year}.txt')
                 , encoding='Latin-1'
                 , sep=';'
                 , decimal=','
@@ -77,12 +116,24 @@ def pretreat_rais(uf='PR', year='2007', treating=True):
                 , on='Município'
                 , how='left')
 
+            df['Município'] = df.loc[:, 'Município'].map(dc.get_dict_mun()).astype('category')
+            
+            if (year < 2006) and (year >=1995):
+            
+                df['knowledge_services'] = df.loc[:, 'CNAE 95 Classe'].map(dc.get_dict_services_knowledge(int(year))).astype(dc.type_cat_know_services)
+                df['technology_industries'] = df.loc[:, 'CNAE 95 Classe'].map(dc.get_dict_industries_tec(int(year))).astype(dc.type_cat_ind_tec)
 
-            # Including some columns of interest related to technology, intensity of applied knowledge and S&T Personnel 
-            df['knowledge_services'] = df.loc[:, 'CNAE 2.0 Classe'].str.slice(0,3).map(dc.get_dict_services_knowledge()).astype(dc.type_cat_know_services)
-            df['technology_industries'] = df.loc[:, 'CNAE 2.0 Classe'].str.slice(0,3).map(dc.get_dict_industries_tec()).astype(dc.type_cat_ind_tec)
-            df['potec'] = df.loc[:, 'CBO Ocupação 2002'].map(dc.get_dict_potec()).fillna('Demais Ocupações').astype(dc.type_cat_potec)
-                
+            elif year >= 2006:  
+            
+                df['knowledge_services'] = df.loc[:, 'CNAE 2.0 Classe'].str.slice(0,3).map(dc.get_dict_services_knowledge(int(year))).astype(dc.type_cat_know_services)
+                df['technology_industries'] = df.loc[:, 'CNAE 2.0 Classe'].str.slice(0,3).map(dc.get_dict_industries_tec(int(year))).astype(dc.type_cat_ind_tec)
+            
+
+            if (year >= 1995) and (year < 2003):
+                df['potec'] = df.loc[:, 'CBO 94 Ocupação'].map(dc.get_dict_potec(int(year))).fillna('Demais Ocupações').astype(dc.type_cat_potec)
+            
+            elif year >=2003:
+                df['potec'] = df.loc[:, 'CBO Ocupação 2002'].map(dc.get_dict_potec(int(year))).fillna('Demais Ocupações').astype(dc.type_cat_potec)
                   
     return df
 
@@ -134,6 +185,11 @@ def generate_rais_dataframe(list_ufs, year, data_format='wide', filter_metarea=F
     https://acervodigital.ufpr.br/handle/1884/58421?show=full
     
     """
+    if year > 2005:
+        escolaridade = 'Escolaridade após 2005'
+    else:
+        escolaridade = 'Grau Instrução 2005-1985'
+    
     # Loads each file into DataFrame and assign it to the dictionary dict_df
     dict_df = dict()
     for uf in list_ufs:
@@ -147,7 +203,17 @@ def generate_rais_dataframe(list_ufs, year, data_format='wide', filter_metarea=F
 #            df = df.groupby(by=['UF', territorio, 'Tamanho Estabelecimento', 'Natureza Jurídica', 'knowledge_services', 'technology_industries', 'Escolaridade após 2005','potec'], observed=True).size().reset_index()
 #        
 #        elif filter_metarea == False:
-        df = df.groupby(by=['UF', territorio, 'Tamanho Estabelecimento', 'Natureza Jurídica', 'knowledge_services', 'technology_industries', 'Escolaridade após 2005','potec'], observed=True).size().reset_index()
+        df = df.groupby(
+            by=[
+                'UF'
+                , 'Município'
+#                , territorio
+                , 'Tamanho Estabelecimento'
+                , 'Natureza Jurídica'
+                , 'knowledge_services'
+                , 'technology_industries'
+                , escolaridade
+                ,'potec'], observed=True).size().reset_index()
         dict_df[uf] = df
 
 
@@ -156,8 +222,9 @@ def generate_rais_dataframe(list_ufs, year, data_format='wide', filter_metarea=F
 
 
     df.rename(columns={0: 'Pessoal'}, inplace=True)
-    df[territorio] = df[territorio].astype('category')
-    df.rename(columns={territorio:'Território'}, inplace=True)
+    df['Município'] = df['Município'].astype('category')
+#    df[territorio] = df[territorio].astype('category')
+#    df.rename(columns={territorio:'Território'}, inplace=True)
     
     # Creates new columns for organization size, organization legal status, economic sectors, level of education and scientific and technical (S&T) personnel (POTEC)
     df['Tamanho Estabelecimento'] = df['Tamanho Estabelecimento'].map(dc.dict_porte).astype(dc.type_porte)
@@ -166,15 +233,16 @@ def generate_rais_dataframe(list_ufs, year, data_format='wide', filter_metarea=F
     df['Sectors'] = df.knowledge_services.map({'Without Classification':'Without Classification'}).fillna('Services')
     df['Sectors'] = ['Services' if x[1]['Sectors'] == 'Services' else 'Industry' if x[1]['technology_industries'] != 'Without Classification' and x[1]['Sectors'] != 'Services'  else 'Others' for x in df.iterrows()]
     df['Sectors'] = df['Sectors'].astype('category')
-    df['Escolaridade1'] = df['Escolaridade após 2005'].map(dc.dict_escolaridade)
-    df['Escolaridade2'] = df['Escolaridade após 2005'].map(dc.dict_escolaridade1)
+    df['Escolaridade1'] = df[escolaridade].map(dc.dict_escolaridade)
+    df['Escolaridade2'] = df[escolaridade].map(dc.dict_escolaridade1)
     df['Potec Grupo'] = df['potec'].map(dc.dict_potec).astype('category')
     
 
     # Reorder columns
     df = df[[
         'UF'
-        ,'Território'
+        , 'Município'
+#        ,'Território'
         , 'Sectors'
         , 'Tamanho Estabelecimento'
         , 'Natureza Jurídica Grupo'

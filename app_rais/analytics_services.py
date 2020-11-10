@@ -183,12 +183,25 @@ def knowledge_evolution_dynamic(list_years, list_ufs, range_x,  relative=False, 
 
     return fig
 
-def services_knowledge_evolution_table(total=True, save_feather=False):
-    df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_metropolises_07to17.ftd'))
+def services_knowledge_evolution_table(list_years, total=True, save_feather=False):
+
+    dict_years = dict()
+
+    for year in list_years:
+        df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_motropolises_{year}.ftd'))
+
+        dict_years[year] = df
+
+    df = pd.concat(objs=dict_years.values(), keys=dict_years.keys())
+
+
+#    df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_metropolises_07to17.ftd'))
     
     df = df[df['knowledge_services'] != 'Without Classification']
     
     df.rename(columns={'Território':'Espaço Metropolitano', 'knowledge_services': 'Tipo'}, inplace=True)
+
+    df = df.reset_index().rename(columns={'level_0': 'Ano'}).drop(columns=['level_1'])
 
     df = df.groupby(by=['Espaço Metropolitano', 'Tipo', 'Ano'], observed=True).agg(Pessoal=('Pessoal', 'sum'))
 
@@ -222,6 +235,7 @@ def services_knowledge_evolution_table(total=True, save_feather=False):
         df = df.drop(columns='index')
         
     if save_feather == True:
+        df.columns = df.columns.astype('str')
         df.reset_index().to_feather(os.path.join(modulepath,'data/rais_dataframes/metro_areas_serv_knowledge_evolution_07to17.ftd'))
     
     return df
@@ -230,10 +244,10 @@ def services_knowledge_evolution_table(total=True, save_feather=False):
 def serv_knowledge_evolution_line_plot(met='Total', height=700):
     
     if met == 'Total':
-        title = 'SIC no Conjunto dos Espaços Metropolitano entre 2007 e 2017'
+        title = 'SIC no Conjunto dos Espaços Metropolitano entre 2007 e 2018'
         
     else:
-        title = f'SIC no Espaço Metropolitano de {met} entre 2007 e 2017'
+        title = f'SIC no Espaço Metropolitano de {met} entre 2007 e 2018'
     
     df = pd.read_feather(os.path.join(modulepath, 'data/rais_dataframes/metro_areas_serv_knowledge_evolution_07to17.ftd'))
     df = df.melt(id_vars=['Espaço Metropolitano', 'Tipo'], var_name='Ano', value_name='Pessoal')

@@ -67,7 +67,9 @@ def concentration_level(year, list_ufs, granular_level='sub_category'):
 
 
 
-def evolution_table(list_years, list_ufs, data_format='wide'):
+def evolution_table(list_years, list_mets=['Belo Horizonte', 'Belém', 'Brasília', 'Campinas', 'Curitiba',
+       'Florianópolis', 'Fortaleza', 'Goiânia', 'Manaus', 'Porto Alegre',
+       'Recife', 'Rio de Janeiro', 'Salvador', 'São Paulo', 'Vitória', 'Total'], data_format='wide'):
     dict_df = dict()
     for year in list_years:
         df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_motropolises_{year}.ftd'))
@@ -83,6 +85,16 @@ def evolution_table(list_years, list_ufs, data_format='wide'):
     df = df.pivot_table(aggfunc='sum', columns='Ano', index=['Espaço Metropolitano', 'Potec Grupo'])
     df = df.rename_axis(columns={'Ano':''})
     df = df.droplevel(0, axis=1)
+
+    df_total = df.reset_index().groupby(by=['Potec Grupo'], observed=True).sum()
+
+    df_total.insert(0, 'Espaço Metropolitano', 'Total')
+
+    df_total = df_total.reset_index().set_index(['Espaço Metropolitano', 'Potec Grupo'])
+
+    df = pd.concat([df, df_total])
+
+    df = df.reset_index().loc[df.reset_index()['Espaço Metropolitano'].isin(list_mets)].set_index(['Espaço Metropolitano', 'Potec Grupo'])
     
     if data_format == 'wide':
         pass
@@ -91,9 +103,11 @@ def evolution_table(list_years, list_ufs, data_format='wide'):
     
     return df
 
-def evolution_plot(list_years, list_ufs):
+def evolution_plot(list_years, list_mets=['Belo Horizonte', 'Belém', 'Brasília', 'Campinas', 'Curitiba',
+       'Florianópolis', 'Fortaleza', 'Goiânia', 'Manaus', 'Porto Alegre',
+       'Recife', 'Rio de Janeiro', 'Salvador', 'São Paulo', 'Vitória']):
 
-    df = evolution_table(list_years=list_years, list_ufs=list_ufs, data_format='long')
+    df = evolution_table(list_years=list_years, list_mets=list_mets, data_format='long')
     
     fig = px.bar(
         data_frame=df

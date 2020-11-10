@@ -29,7 +29,34 @@ def interest_columns_for_year_treat(year):
     return list_columns
 
 
-
+dict_uf_cod = {
+    'AC':'12'
+    ,'AM':'13'
+    ,'RR':'14'
+    ,'PA':'15'
+    ,'AP':'16'
+    ,'TO':'17'
+    ,'MA':'21'
+    ,'PI':'22'
+    ,'CE':'23'
+    ,'RN':'24'
+    ,'PB':'25'
+    ,'PE':'26'
+    ,'AL':'27'
+    ,'SE':'28'
+    ,'BA':'29'
+    ,'MG':'31'
+    ,'ES':'32'
+    ,'RJ':'33'
+    ,'SP':'35'
+    ,'PR':'41'
+    ,'SC':'42'
+    ,'RS':'43'
+    ,'MS':'50'
+    ,'MT':'51'
+    ,'GO':'52'
+    ,'DF':'53'
+}
 
 
 
@@ -106,6 +133,16 @@ type_cat_ind_tec = CategoricalDtype(
         , 'Medium-low-technology'
         , 'Low-technology'
         , 'Without Classification'
+    ]
+    , ordered=True
+)
+
+type_cat_ind_tec_PT = CategoricalDtype(
+    categories=[
+        'Alto'
+        , 'Médio-Alto'
+        , 'Médio-Baixo'
+        , 'Baixo'
     ]
     , ordered=True
 )
@@ -330,7 +367,8 @@ dict_escolaridade1 = {
 }
 
 dic_dtype = {
-    'CBO Ocupação 2002' : 'category'
+    'CBO 94 Ocupação' : 'category'
+    ,'CBO Ocupação 2002' : 'category'
     ,'CNAE 2.0 Classe' : 'category'
     ,'CNAE 95 Classe' : 'category'
     , 'Idade':'int32'
@@ -361,6 +399,7 @@ dic_dtype = {
     , 'potec':type_cat_potec
     , 'Raça Cor':'category'
     , 'Sexo Trabalhador':'category'
+    , 'CBO 2002': 'category'
 }
 
 
@@ -383,52 +422,162 @@ dict_arranjo = {
 }
 
 
-def get_dict_services_knowledge():
-
-    df_sectors_technology = pd.read_csv(
-        os.path.join(modulepath,'../app_rais/data/sector_structure/estrutura setorial.csv')
-        , sep=';'
-        , dtype={
-            'cod_cnae_grupo':'category'
-            ,'CNAE_grupo':'category'
-            , 'technology_industries':'category'
-            }
-    ) 
-    dict_services_knowledge = {row[1]['cod_cnae_grupo']:row[1]['knowledge_services'] for row in df_sectors_technology.iterrows()}
-
-    return dict_services_knowledge
-
-
-def get_dict_industries_tec():
-
-    df_sectors_technology = pd.read_csv(
-        os.path.join(modulepath,'../app_rais/data/sector_structure/estrutura setorial.csv')
-        , sep=';'
-        , dtype={
-            'cod_cnae_grupo':'category'
-            ,'CNAE_grupo':'category'
-            , 'technology_industries':'category'
-            }
-    ) 
-    dict_industries_tec = {row[1]['cod_cnae_grupo']:row[1]['technology_industries'] for row in df_sectors_technology.iterrows()}
-
-    return dict_industries_tec
+#def get_dict_services_knowledge():
+#
+#    df_sectors_technology = pd.read_csv(
+#        os.path.join(modulepath,'../app_rais/data/sector_structure/estrutura setorial.csv')
+#        , sep=';'
+#        , dtype={
+#            'cod_cnae_grupo':'category'
+#            ,'CNAE_grupo':'category'
+#            , 'technology_industries':'category'
+#            }
+#    ) 
+#    dict_services_knowledge = {row[1]['cod_cnae_grupo']:row[1]['knowledge_services'] for row in df_sectors_technology.iterrows()}
+#
+#    return dict_services_knowledge
 
 
-def get_dict_potec():
+#def get_dict_industries_tec():#
+#
+#    df_sectors_technology = pd.read_csv(
+##        os.path.join(modulepath,'../app_rais/data/sector_structure/estrutura setorial.csv')
+#        , sep=';'
+#        , dtype={
+#            'cod_cnae_grupo':'category'
+#            ,'CNAE_grupo':'category'
+#            , 'technology_industries':'category'
+#            }
+#    ) 
+#    dict_industries_tec = {row[1]['cod_cnae_grupo']:row[1]['technology_industries'] for row in df_sectors_technology.iterrows()}#
+#
+#    return dict_industries_tec
 
-    df_potec = pd.read_csv(
-        os.path.join(modulepath,'data/occupation_structure/potec.csv')
-        , sep=';'
-        , dtype=dic_dtype
-    )
+
+#def get_dict_potec():
+#
+#    df_potec = pd.read_csv(
+#        os.path.join(modulepath,'data/occupation_structure/potec.csv')
+#        , sep=';'
+#        , dtype=dic_dtype
+#    )
+#    
+#    
+#    dict_potec = {row[1]['CBO Ocupação 2002']:row[1]['potec'] for row in df_potec.iterrows()}
     
     
-    dict_potec = {row[1]['CBO Ocupação 2002']:row[1]['potec'] for row in df_potec.iterrows()}
+#    return dict_potec
+
+
+def get_dict_potec(year):
+
+    if (year >= 1995) and (year < 2003):
+
+        df_potec = pd.read_csv(
+            os.path.join(modulepath,'data/occupation_structure/potec_cbo94.csv')
+            , sep=';'
+            , usecols=['CBO 94 Ocupação', 'potec']
+            , dtype=dic_dtype
+        )
+        dict_potec = {row[1]['CBO 94 Ocupação']:row[1]['potec'] for row in df_potec.iterrows()}
+
+    elif year >=2003:
+
+        df_potec = pd.read_csv(
+            os.path.join(modulepath,'data/occupation_structure/potec_cbo02.csv')
+            , sep=';'
+            , usecols=['CBO Ocupação 2002', 'potec']
+            , dtype=dic_dtype
+        )
+        
+        
+        dict_potec = {row[1]['CBO Ocupação 2002']:row[1]['potec'] for row in df_potec.iterrows()}
     
     
     return dict_potec
 
+
+
+def get_dict_services_knowledge(year):
+    
+    if (year < 2006) and (year >=1995):
+        df_sectors_technology = pd.read_csv(
+            os.path.join(modulepath,'../app_rais/data/sector_structure/estrutura setorial cnae10.csv')
+            , sep=';'
+            , dtype={
+                'cod_cnae_grupo':'category'
+                ,'CNAE_grupo':'category'
+                , 'technology_industries':'category'
+                }
+        )
+        dict_services_knowledge = {row[1]['cod_cnae_grupo']:row[1]['knowledge_services'] for row in df_sectors_technology.iterrows()}
+
+    if year >= 2006:
+        df_sectors_technology = pd.read_csv(
+            os.path.join(modulepath,'../app_rais/data/sector_structure/estrutura setorial.csv')
+            , sep=';'
+            , dtype={
+                'cod_cnae_grupo':'category'
+                ,'CNAE_grupo':'category'
+                , 'technology_industries':'category'
+                }
+        ) 
+        
+        dict_services_knowledge = {row[1]['cod_cnae_grupo']:row[1]['knowledge_services'] for row in df_sectors_technology.iterrows()}
+
+
+        
+
+    return dict_services_knowledge
+
+
+def get_dict_industries_tec(year):
+    
+    
+    if (year >=1995) and (year < 2006):
+        df_sectors_technology = pd.read_csv(
+            os.path.join(modulepath,'../app_rais/data/sector_structure/estrutura setorial cnae10.csv')
+            , sep=';'
+            , dtype={
+                'cod_cnae_grupo':'category'
+                ,'CNAE_grupo':'category'
+                , 'technology_industries':'category'
+            }
+        )
+        
+        dict_industries_tec = {row[1]['cod_cnae_grupo']:row[1]['technology_industries'] for row in df_sectors_technology.iterrows()}
+    
+    elif year >= 2006:
+
+        df_sectors_technology = pd.read_csv(
+            os.path.join(modulepath,'../app_rais/data/sector_structure/estrutura setorial.csv')
+            , sep=';'
+            , dtype={
+                'cod_cnae_grupo':'category'
+                ,'CNAE_grupo':'category'
+                , 'technology_industries':'category'
+                }
+        ) 
+        dict_industries_tec = {row[1]['cod_cnae_grupo']:row[1]['technology_industries'] for row in df_sectors_technology.iterrows()}
+
+
+    return dict_industries_tec
+
+
+def get_dict_mun():
+
+    df_potec = pd.read_csv(
+        os.path.join(modulepath,'../app_territory/data/brazilian_municipalities.csv')
+        , sep=';'
+        , usecols=['codmun_rais', 'Código Município Completo']
+        , dtype={'codmun_rais':'category', 'Código Município Completo':'category'}
+    )
+    
+    
+    dict_potec = {row[1]['codmun_rais']:row[1]['Código Município Completo'] for row in df_potec.iterrows()}
+    
+    
+    return dict_potec
 
             
 

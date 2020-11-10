@@ -96,14 +96,14 @@ def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_lev
         df = df[~df['Território'].str.startswith('Demais')]
         df = df.groupby(['UF', 'Território', 'technology_industries'], observed=True).agg(Pessoal=('Pessoal', 'sum'))
         df = df.reset_index()
-        df['Território'] = df['Território'].map(dc.dict_arranjo)
+        df['Território'] = df['Território'].map(dc.dict_arranjo).astype('category')
         df['technology_industries'] = df['technology_industries'].map({
             'High-technology':'Alto'
             , 'Medium-high-technology':'Médio-Alto'
             , 'Medium-low-technology':'Médio-Baixo'
             , 'Low-technology':'Baixo'
         }
-        )
+        ).astype(dc.type_cat_ind_tec_PT)
         df.rename(columns={'Território':'Espaço Metropolitano', 'technology_industries':'Nível Tecnológico'}, inplace=True)
         if list_tec_level != None:
             df = df[df['Nível Tecnológico'].isin(list_tec_level)]
@@ -112,7 +112,10 @@ def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_lev
         
     df = pd.concat(dict_df.values(),  axis=0, keys=dict_df.keys())
     df = df.reset_index().drop(columns='level_1').rename(columns={'level_0':'Ano'})
-    df.sort_values(by=['Ano', 'UF', 'Espaço Metropolitano'], inplace=True)
+    df['Ano'] = df['Ano'].astype(np.int32)
+    df['UF'] = df['UF'].astype('category')
+    df.sort_values(by=['Ano','Espaço Metropolitano','Nível Tecnológico'],  ascending=True , inplace=True)
+#    df.sort_values(by=['Nível Tecnológico','Ano', ], inplace=True)
 
 #    df = df.reset_index().drop(columns='Index')
 
@@ -169,8 +172,8 @@ def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_lev
         , animation_frame='Ano'
         , orientation='h'
         , category_orders={
-            'Nível Tecnológico': ['Alto', 'Médio-Alto', 'Médio-Baixo', 'Baixo']
-            , 'Espaço Metropolitano': focus
+#            'Nível Tecnológico': ['Alto', 'Médio-Alto', 'Médio-Baixo', 'Baixo']
+             'Espaço Metropolitano': focus
         }
         , color_discrete_map={
             'Alto':'rgb(103,0,31)'
@@ -187,18 +190,29 @@ def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_lev
 #    fig.update_layout(transition = {'duration': 20000})
 
     if relative != True:
-        fig.update_layout(yaxis={'categoryorder':'total ascending'})
+        fig.update_layout(yaxis={'categoryorder':"sum ascending"})
     fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 2000    
    
 
-    return fig
+    return fig, df
 
-def ind_tech_level_evolution_table(total=True, save_feather=False):
-    df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_metropolises_07to17.ftd'))
+def ind_tech_level_evolution_table(list_years, total=True, save_feather=False):
+    dict_years = dict()
+
+    for year in list_years:
+        df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_motropolises_{year}.ftd'))
+
+        dict_years[year] = df
+
+    df = pd.concat(objs=dict_years.values(), keys=dict_years.keys())
+    
+#    df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_metropolises_07to17.ftd'))
     
     df = df[df['technology_industries'] != 'Without Classification']
     
     df.rename(columns={'Território':'Espaço Metropolitano', 'technology_industries': 'Nível Tecnológico'}, inplace=True)
+
+    df = df.reset_index().rename(columns={'level_0': 'Ano'}).drop(columns=['level_1'])
 
     df = df.groupby(by=['Espaço Metropolitano', 'Nível Tecnológico', 'Ano'], observed=True).agg(Pessoal=('Pessoal', 'sum'))
 
@@ -218,13 +232,14 @@ def ind_tech_level_evolution_table(total=True, save_feather=False):
         df.set_index(['Espaço Metropolitano', 'Nível Tecnológico'], inplace=True)
         
     if save_feather == True:
-        df.reset_index().to_feather('app_rais/data/rais_dataframes/metro_areas_ind_tec_evolution_07to17.ftd')
+        df.columns = df.columns.astype('str')
+        df.reset_index().to_feather('app_rais/data/rais_dataframes/metro_areas_ind_tec_evolution_00to18.ftd')
     
     return df
 
 
 def ind_tech_level_evolution_line_plot(title, list_met=['Total'], height=700):
-    df = pd.read_feather(os.path.join(modulepath,'data/rais_dataframes/metro_areas_ind_tec_evolution_07to17.ftd'))
+    df = pd.read_feather(os.path.join(modulepath,'data/rais_dataframes/metro_areas_ind_tec_evolution_00to18.ftd'))
     df = df.melt(id_vars=['Espaço Metropolitano', 'Nível Tecnológico'], var_name='Ano', value_name='Pessoal')
     df['Nível Tecnológico'] = df['Nível Tecnológico'].map(
         {
@@ -237,7 +252,7 @@ def ind_tech_level_evolution_line_plot(title, list_met=['Total'], height=700):
     df = df[df['Espaço Metropolitano'].isin(list_met)]
     df = df.groupby(['Espaço Metropolitano', 'Nível Tecnológico', 'Ano']).sum().reset_index()
     
-    fig = px.line(
+    fig = px.line( 
         data_frame=df
         , x='Ano'
         , y='Pessoal'
@@ -248,6 +263,16 @@ def ind_tech_level_evolution_line_plot(title, list_met=['Total'], height=700):
             , 'Médio-Alto':'rgb(178,24,43)'
             , 'Médio-Baixo':'rgb(214,96,77)'
             , 'Baixo':'rgb(244,165,130)'
+        }
+        , category_orders=
+        {
+            'Nível Tecnológico':
+            [
+                'Alto'
+                , 'Médio-Alto'
+                , 'Médio-Baixo'
+                , 'Baixo'
+            ]
         }
         , title = title
         , height=height
