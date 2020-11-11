@@ -224,6 +224,33 @@ type_porte = CategoricalDtype(
     , ordered=True
 )
 
+type_escolaridade_treated = CategoricalDtype(
+    categories=[
+        'Não-Superior'
+        ,'Superior'
+        ,'Mestrado'
+        ,'Doutorado'
+    ]
+    , ordered=True
+)
+
+type_escolaridade1_treated = CategoricalDtype(
+    categories=[
+        'Inferior ao Ensino Médio Completo'
+        ,'Ensino Médio ao Superior Incompleto'
+        ,'Superior'
+        ,'Mestrado'
+        ,'Doutorado'
+    ]
+    , ordered=True
+)
+
+
+
+
+
+
+
 dict_potec = {'Diretores e Gerentes de P&D':'Diretores e Gerentes de P&D'
               ,'Engenheiros Mecatrônicos':'Engenheiros'
               ,'Engenheiros Civis etc':'Engenheiros'

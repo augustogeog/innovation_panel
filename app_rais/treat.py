@@ -233,9 +233,10 @@ def generate_rais_dataframe(list_ufs, year, data_format='wide', filter_metarea=F
     df['Sectors'] = df.knowledge_services.map({'Without Classification':'Without Classification'}).fillna('Services')
     df['Sectors'] = ['Services' if x[1]['Sectors'] == 'Services' else 'Industry' if x[1]['technology_industries'] != 'Without Classification' and x[1]['Sectors'] != 'Services'  else 'Others' for x in df.iterrows()]
     df['Sectors'] = df['Sectors'].astype('category')
-    df['Escolaridade1'] = df[escolaridade].map(dc.dict_escolaridade)
-    df['Escolaridade2'] = df[escolaridade].map(dc.dict_escolaridade1)
+    df['Escolaridade1'] = df[escolaridade].map(dc.dict_escolaridade).astype(dc.type_escolaridade_treated)
+    df['Escolaridade2'] = df[escolaridade].map(dc.dict_escolaridade1).astype(dc.type_escolaridade1_treated)
     df['Potec Grupo'] = df['potec'].map(dc.dict_potec).astype('category')
+    df['UF'] = df['UF'].astype('category')
     
 
     # Reorder columns
