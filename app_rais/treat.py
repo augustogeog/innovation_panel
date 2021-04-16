@@ -96,7 +96,7 @@ def pretreat_rais(uf='PR', year=2007, treating=True):
             df.drop(labels='index', axis=1, inplace=True)
             
 
-            # Including some columns of interest related to territorial structure of Brazilian metropolises
+            # Including some columns of interest related to territorial structure of Brazilian motropolises
             # Talvez eu deva fazer para a estrutura territorial o mesmo que fiz para as colunas de POTEC Tech Ind e KS adiante           
             df_territory_tese = pd.read_csv(
                 os.path.join(modulepath,'../app_territory/data/territorio_tese.csv')
@@ -116,7 +116,7 @@ def pretreat_rais(uf='PR', year=2007, treating=True):
                 , on='Município'
                 , how='left')
 
-            df['Município'] = df.loc[:, 'Município'].map(dc.get_dict_mun()).astype('category')
+            df['Município'] = df.loc[:, 'Município'].map(dc.get_dict_mun_code()).astype('category')
             
             if (year < 2006) and (year >=1995):
             
@@ -222,7 +222,9 @@ def generate_rais_dataframe(list_ufs, year, data_format='wide', filter_metarea=F
 
 
     df.rename(columns={0: 'Pessoal'}, inplace=True)
-    df['Município'] = df['Município'].astype('category')
+#    df['Município'] = df['Município'].astype('category')
+    df['Cod Município'] = df['Município'].astype('category')
+    df['Município'] = df.loc[:, 'Município'].map(dc.get_dict_mun_name()).astype('category')
 #    df[territorio] = df[territorio].astype('category')
 #    df.rename(columns={territorio:'Território'}, inplace=True)
     
@@ -239,11 +241,22 @@ def generate_rais_dataframe(list_ufs, year, data_format='wide', filter_metarea=F
     df['UF'] = df['UF'].astype('category')
     
 
+    df_territory_tese = pd.read_csv(
+        os.path.join(modulepath,'../app_territory/data/territory.csv')
+        , sep=';'
+        , dtype={'Cod Município':'category', 'Território': 'category'})
+    df = df.merge(
+        df_territory_tese
+        , on='Cod Município'
+        , how='left')
+    df['Cod Município'] = df['Cod Município'].astype('category')
+
     # Reorder columns
     df = df[[
         'UF'
+        ,'Cod Município'
         , 'Município'
-#        ,'Território'
+        ,'Território'
         , 'Sectors'
         , 'Tamanho Estabelecimento'
         , 'Natureza Jurídica Grupo'
@@ -268,6 +281,7 @@ def load_save_rais_dataframe_loop(list_ufs, list_years, filter_metarea=False, te
     
     for year in list_years:
         df = generate_rais_dataframe(list_ufs=list_ufs, year=year, filter_metarea=filter_metarea, territorio=territorio)
+
         df.reset_index().drop(columns='index').to_feather(os.path.join(directory, f'ufs_with_motropolises_{year}.ftd'))
         print(f'ufs_with_motropolises_{year} saved.')
 

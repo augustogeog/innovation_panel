@@ -591,7 +591,7 @@ def get_dict_industries_tec(year):
     return dict_industries_tec
 
 
-def get_dict_mun():
+def get_dict_mun_code():
 
     df_potec = pd.read_csv(
         os.path.join(modulepath,'../app_territory/data/brazilian_municipalities.csv')
@@ -602,6 +602,21 @@ def get_dict_mun():
     
     
     dict_potec = {row[1]['codmun_rais']:row[1]['Código Município Completo'] for row in df_potec.iterrows()}
+    
+    
+    return dict_potec
+
+def get_dict_mun_name():
+
+    df_potec = pd.read_csv(
+        os.path.join(modulepath,'../app_territory/data/brazilian_municipalities.csv')
+        , sep=';'
+        , usecols=['Código Município Completo', 'Nome_Município']
+        , dtype={'Código Município Completo':'category', 'Nome_Município':'category'}
+    )
+    
+    
+    dict_potec = {row[1]['Código Município Completo']:row[1]['Nome_Município'] for row in df_potec.iterrows()}
     
     
     return dict_potec

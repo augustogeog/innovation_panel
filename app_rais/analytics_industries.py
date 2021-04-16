@@ -8,12 +8,15 @@ import app_rais.dicts_constants as dc
 
 modulepath = os.path.dirname(__file__)
 
-def ind_level_comparison_table(year, list_ufs):
+def ind_level_comparison_table(year, list_ufs, list_territory_exclude=None, exclude_territory_starts_with=None):
     df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_motropolises_{year}.ftd'))
     df = df[df['UF'].isin(list_ufs)]
     df = df[df['technology_industries'] != 'Without Classification']
     df_uf = df.copy()
-    df = df[~df['Território'].str.startswith('Demais')]
+    if list_territory_exclude != None:
+        df = df[~df['Território'].isin(list_territory_exclude)]
+    if exclude_territory_starts_with != None:
+        df = df[~df['Território'].str.startswith(exclude_territory_starts_with)]
     df = df.groupby(['UF', 'Território', 'technology_industries'], observed=True).agg(Pessoal_sum=('Pessoal', 'sum'))
     df = df.reset_index()
     df_uf = df_uf[['UF', 'technology_industries', 'Pessoal']].groupby(by=['UF', 'technology_industries'], observed=True).sum()
@@ -37,15 +40,18 @@ def ind_level_comparison_table(year, list_ufs):
     return df_merged
 
 
-def ind_level_comparison_plot(year, ufs):
+def ind_level_comparison_plot(year, ufs, list_territory_exclude=None, exclude_territory_starts_with=None):
     
     df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_motropolises_{year}.ftd'))
     df = df[df['UF'].isin(ufs)]
     df = df[df['technology_industries'] != 'Without Classification']
-    df = df[~df['Território'].str.startswith('Demais')]
+    if list_territory_exclude != None:
+        df = df[~df['Território'].isin(list_territory_exclude)]
+    if exclude_territory_starts_with !=None:
+        df = df[~df['Território'].str.startswith(exclude_territory_starts_with)]
     df = df.groupby(['UF', 'Território', 'technology_industries'], observed=True).agg(Pessoal_sum=('Pessoal', 'sum'))
     df = df.reset_index()
-    df['Território'] = df['Território'].map(dc.dict_arranjo)
+    df['Território'] = df['Território'].replace(dc.dict_arranjo)
     df['technology_industries'] = df['technology_industries'].map(
         {
         'High-technology':'Alto'
@@ -54,11 +60,11 @@ def ind_level_comparison_plot(year, ufs):
         , 'Low-technology':'Baixo'
         }
     )
-    df.rename(columns={'Território':'Espaço Metropolitano', 'Pessoal_sum':'Pessoal', 'technology_industries':'Nível Tecnológico'}, inplace=True)
+    df.rename(columns={'Pessoal_sum':'Pessoal', 'technology_industries':'Nível Tecnológico'}, inplace=True)
     fig = px.bar(
         data_frame=df
         , x='Pessoal'
-        , y='Espaço Metropolitano' 
+        , y='Território' 
         , color='Nível Tecnológico'
         , orientation='h'
         , color_discrete_map={
@@ -67,7 +73,7 @@ def ind_level_comparison_plot(year, ufs):
             , 'Médio-Baixo':'rgb(214,96,77)'
             , 'Baixo':'rgb(244,165,130)'}
         , height=700
-        , title=f'Indústrias no Espaços Metropolitanos Segundo Nível Tecnológico em {year}'
+        , title=f'Indústrias dos Territórios Selecionados Segundo Nível Tecnológico em {year}'
     )
 
 
@@ -75,7 +81,7 @@ def ind_level_comparison_plot(year, ufs):
     return fig
 
 
-def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_level=None,  relative=False, focus='Baixo'):
+def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_level=None,  relative=False, focus='Baixo', exclude_territory_starts_with=None, list_include_territory=None, height=700):
     
     if focus == 'Baixo':
         focus = ['Manaus','Campinas', 'Curitiba','Belo Horizonte', 'São Paulo', 'Salvador', 'Vitória','Rio de Janeiro', 'Florianópolis', 'Porto Alegre', 'Recife', 'Brasília', 'Goiânia', 'Belém', 'Fortaleza', 'Total']
@@ -90,13 +96,16 @@ def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_lev
     
     for year in list_years:
         year = str(year)
-        df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_motropolises_{year}.ftd'))
+        df = pd.read_feather(f'app_rais/data/rais_dataframes/ufs_with_motropolises_{year}.ftd')
         df = df[df['UF'].isin(list_ufs)]
         df = df[df['technology_industries'] != 'Without Classification']
-        df = df[~df['Território'].str.startswith('Demais')]
+        if exclude_territory_starts_with != None:
+            df = df[~df['Território'].str.startswith(exclude_territory_starts_with)]
+        if list_include_territory != None:
+            df = df[~df['Território'].isin(list_include_territory)]
         df = df.groupby(['UF', 'Território', 'technology_industries'], observed=True).agg(Pessoal=('Pessoal', 'sum'))
         df = df.reset_index()
-        df['Território'] = df['Território'].map(dc.dict_arranjo).astype('category')
+        df['Território'] = df['Território'].replace(dc.dict_arranjo).astype('category')
         df['technology_industries'] = df['technology_industries'].map({
             'High-technology':'Alto'
             , 'Medium-high-technology':'Médio-Alto'
@@ -119,48 +128,41 @@ def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_lev
 
 #    df = df.reset_index().drop(columns='Index')
 
+    territories_order = list()
 
     if relative == True:
-        # Preparing Total for Brazilian Metropolises
-        df_total = df.groupby(['Ano', 'Nível Tecnológico']).agg(Pessoal=('Pessoal', 'sum')).reset_index()
+
+        df_total = df.groupby(['Ano', 'Nível Tecnológico'], observed=True).agg(Pessoal=('Pessoal', 'sum')).reset_index()
         df_total['Espaço Metropolitano'] = 'Total'
         df_total['UF'] = 'BR'
         df_total = df_total[['Ano', 'Espaço Metropolitano', 'Nível Tecnológico', 'Pessoal']]
 
         df_total = pd.merge(
             left=df_total
-            ,right=df_total.groupby(['Ano']).sum().reset_index()
+            ,right=df_total.groupby(['Ano'], observed=True).sum().reset_index()
             , on=['Ano']
             , suffixes=('', ' Total')
         )
 
-        # Preparing the relative data for Brasilia
-        df_bras = df[df['Espaço Metropolitano'] == 'Brasília']
-        df_bras = pd.merge(
-            left=df_bras.groupby(['Ano', 'Espaço Metropolitano', 'Nível Tecnológico']).agg(Pessoal=('Pessoal', 'sum')).reset_index()
-            ,right=df_bras.groupby(['Ano', 'Espaço Metropolitano']).agg(Pessoal_total=('Pessoal', 'sum'))
-            ,on=['Ano', 'Espaço Metropolitano']
-        ).rename(columns={'Pessoal_total': 'Pessoal Total'})
-
-        # Preparing the relative data for the remaining metropolitan areas
-        df = df[df['Espaço Metropolitano'] != 'Brasília']
         df = pd.merge(
-            left=df.groupby(['Ano', 'Espaço Metropolitano', 'Nível Tecnológico']).agg(Pessoal=('Pessoal', 'sum')).reset_index()
-            ,right=df.groupby(['Ano', 'Espaço Metropolitano']).agg(Pessoal_total=('Pessoal', 'sum'))
+            left=df.groupby(['Ano', 'Espaço Metropolitano', 'Nível Tecnológico'], observed=True).agg(Pessoal=('Pessoal', 'sum')).reset_index()
+            ,right=df.groupby(['Ano', 'Espaço Metropolitano'], observed=True).agg(Pessoal_total=('Pessoal', 'sum'))
             ,on=['Ano', 'Espaço Metropolitano']
         ).rename(columns={'Pessoal_total': 'Pessoal Total'})
-        
-        # concatenating everything
 
-        df = pd.concat([df, df_bras, df_total])
 
-        # calculating the relative values
+        df = pd.concat([df, df_total])
         df['Pessoal %'] = df['Pessoal'] / df['Pessoal Total'] *100 
         df.drop(columns=['Pessoal', 'Pessoal Total'], inplace=True)
-#        df['Ano'] = df['Ano'].astype('category')
-#        df['Espaço Metropolitano'] = df['Espaço Metropolitano'].astype('category')
-#        df['Nível Tecnológico'] = df['Nível Tecnológico'].astype(dc.type_cat_ind_tec)
-#        df.sort_values(by=['Ano', 'Espaço Metropolitano', 'Nível Tecnológico'], inplace=True)
+        df['Ano'] = df['Ano'].astype('category')
+        df['Espaço Metropolitano'] = df['Espaço Metropolitano'].astype('category')
+        df['Nível Tecnológico'] = df['Nível Tecnológico'].astype(dc.type_cat_ind_tec_PT)
+        df.sort_values(by=['Ano', 'Espaço Metropolitano', 'Nível Tecnológico'], inplace=True)
+
+        territories_order = list(df[(df.Ano == df.Ano.astype(np.int32).max()) & (df['Nível Tecnológico'].isin(['Alto', 'Médio-Alto'])) & (df['Espaço Metropolitano'] != 'Total')].groupby('Espaço Metropolitano', observed=True).sum().sort_values('Pessoal %', ascending=False).index)
+        territories_order.extend(['Total'])
+
+        range_x = 100
         
     
 
@@ -173,14 +175,14 @@ def ind_tech_level_evolution_dynamic(list_years, list_ufs, range_x, list_tec_lev
         , orientation='h'
         , category_orders={
 #            'Nível Tecnológico': ['Alto', 'Médio-Alto', 'Médio-Baixo', 'Baixo']
-             'Espaço Metropolitano': focus
+             'Espaço Metropolitano': territories_order
         }
         , color_discrete_map={
             'Alto':'rgb(103,0,31)'
             , 'Médio-Alto':'rgb(178,24,43)'
             , 'Médio-Baixo':'rgb(214,96,77)'
             , 'Baixo':'rgb(244,165,130)'}
-        , height=700
+        , height=height
         , title=f'Indústrias no Espaços Metropolitanos Segundo Nível Tecnológico entre {list_years[0]} e {list_years[-1]}'
         , range_x=(0,range_x)
         , barmode='relative'
@@ -206,11 +208,18 @@ def ind_tech_level_evolution_table(list_years, total=True, save_feather=False):
 
     df = pd.concat(objs=dict_years.values(), keys=dict_years.keys())
     
-#    df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_metropolises_07to17.ftd'))
+#    df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_motropolises_07to17.ftd'))
     
     df = df[df['technology_industries'] != 'Without Classification']
     
     df.rename(columns={'Território':'Espaço Metropolitano', 'technology_industries': 'Nível Tecnológico'}, inplace=True)
+
+    df['Nível Tecnológico'] = df['Nível Tecnológico'].map({
+        'High-technology':'Alto'
+        , 'Medium-high-technology':'Médio-Alto'
+        , 'Medium-low-technology':'Médio-Baixo'
+        , 'Low-technology':'Baixo'
+        }).astype(dc.type_cat_ind_tec_PT)
 
     df = df.reset_index().rename(columns={'level_0': 'Ano'}).drop(columns=['level_1'])
 
@@ -224,6 +233,8 @@ def ind_tech_level_evolution_table(list_years, total=True, save_feather=False):
 
     df = df.pivot_table(values='Pessoal', columns='Ano', index=['Espaço Metropolitano', 'Nível Tecnológico'], fill_value=0)
     df.rename_axis(columns={'Ano':''}, inplace=True)
+
+
     
     if total == True:
         df_total = df.reset_index().groupby(['Nível Tecnológico'], observed=True).sum().reset_index()

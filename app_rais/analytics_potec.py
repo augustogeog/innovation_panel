@@ -19,7 +19,7 @@ def concentration_level(year, list_ufs, granular_level='sub_category'):
     df = df[df['UF'].isin(list_ufs)]
     df['Território'] = df['Território'].replace(dc.dict_arranjo)
     df.rename(columns={'Território':'Espaço Metropolitano', 'potec':'Potec'}, inplace=True)
-    df['UF'].loc[df['Espaço Metropolitano'] == 'Brasília'] = 'DF/GO'
+#    df['UF'].loc[df['Espaço Metropolitano'] == 'Brasília'] = 'DF/GO'
     df = pd.merge(
         left=df.groupby(['UF', 'Espaço Metropolitano', 'Tipo','Potec'], observed=True).sum().reset_index()
         ,right = df.groupby(['UF', 'Potec'], observed=True).sum().reset_index()

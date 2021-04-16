@@ -1,4 +1,5 @@
-import wget # package for dowloading data from the web
+# package for dowloading data from the web
+import wget
 import os
 from itertools import product
 import glob

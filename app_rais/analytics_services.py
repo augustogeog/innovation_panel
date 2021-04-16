@@ -1,7 +1,5 @@
-import numpy as np
 import os
 import pandas as pd
-from pandas.api.types import CategoricalDtype
 import plotly.express as px
 import matplotlib.pyplot as plt
 import app_rais.dicts_constants as dc
@@ -195,7 +193,7 @@ def services_knowledge_evolution_table(list_years, total=True, save_feather=Fals
     df = pd.concat(objs=dict_years.values(), keys=dict_years.keys())
 
 
-#    df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_metropolises_07to17.ftd'))
+#    df = pd.read_feather(os.path.join(modulepath, f'data/rais_dataframes/ufs_with_motropolises_07to17.ftd'))
     
     df = df[df['knowledge_services'] != 'Without Classification']
     
